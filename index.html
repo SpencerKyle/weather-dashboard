@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard - Home</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css" integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="top-bar align-center">
+        <div class="menu-text">Weather Dashboard</div>
+    </nav>
+    
+    <div class="grid-x">
+        <div class="cell medium-3" style="border: 1px solid #466d98;">
+            <form id="city-form">
+                <h4>Search by City:</h4>
+                <input name="city-input" id="city-input" type="text" placeholder="ex: Seattle">
+                <button type="submit" class="button" id="city-btn">Search</button>
+            </form>
+        </div>
+        <div class="cell medium-9" style="border: 1px solid #466d98;">
+            <div id="weather-main">
+
+            </div>
+        </div>
+    </div>
+    
+    
+    <!-- jQuery and Foundations scripts below -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js" integrity="sha256-pRF3zifJRA9jXGv++b06qwtSqX1byFQOLjqa2PTEb2o=" crossorigin="anonymous"></script>
+    <script>$(document).foundation();</script>
+    <script src="./assets/js/script.js"></script>
+
+</body>
+</html>
