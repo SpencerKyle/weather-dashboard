@@ -6,7 +6,7 @@ var weatherMainEl = document.querySelector('#weather-main');
 var historyEl = document.querySelector("#history");
 var historyClickEl = document.querySelector(".historyItem");
 //create array to hold cities for saving
-var cities = [];
+historyData = [];
 
 //form stuff
 var formSubmitHandler = function(event) {
@@ -34,7 +34,9 @@ var getCityInfo = function(city) {
                         humidity: data.main.humidity,
                         wind: data.wind.speed,
                     };
+                    // saveData(cityDataObj);
                     displayWeather(cityDataObj);
+                    historyHandler(cityDataObj);
                 });
             } else {
                 alert('Please enter a valid city.');
@@ -81,82 +83,44 @@ var displayWeather = function(cityDataObj) {
     //append all to container
     weatherMainEl.appendChild(weatherInfoEl);
 
-    cityDataObj.id = cityIdCounter;
-    
-    cities.push(cityDataObj);
+    // cities.push(cityDataObj);
    
-    addHistory(cityDataObj);
-    saveData();
-
+    // addHistory(cityDataObj);
     cityIdCounter++;
 
     cityInputEl.value = "";
 };
 
-// var displayWeather = function(data, city) {
-//     //
-//     var cityTemp = parseInt(data.main.temp);
-//     var cityCondition = (data.weather[0].description);
-//     var cityHumidity = (data.main.humidity);
-//     var cityWind = (data.wind.speed);
 
-//     //create degree div and append to container
-//     var weatherInfoEl = document.createElement('ul');
-//     weatherInfoEl.classList.add("no-bullet")
-//     //icon handler
-//     var cityIconEl = document.createElement('i');
-//     cityIconEl.classList.add("bi-brightness-high");
-//     weatherInfoEl.appendChild(cityIconEl);
-//     //city name handler
-//     var cityNameEl = document.createElement('li');
-//     cityNameEl.textContent = city;
-//     weatherInfoEl.appendChild(cityNameEl);
-//     //city temp handler
-//     var cityTempEl = document.createElement('li');
-//     cityTempEl.textContent = 'Temp: ' + cityTemp + '\u00B0' + 'F';
-//     weatherInfoEl.appendChild(cityTempEl);
-//     //city desc handler
-//     cityCondition[0].toUpperCase();
-//     var cityDescEl = document.createElement('li');
-//     cityDescEl.textContent = cityCondition;
-//     weatherInfoEl.appendChild(cityDescEl);
-//     //humid handler
-//     var cityHumidityEl = document.createElement('li');
-//     cityHumidityEl.textContent = 'Humidity: ' + cityHumidity;
-//     weatherInfoEl.appendChild(cityHumidityEl);
-//     //wind speed handler
-//     var cityWindEl = document.createElement('li');
-//     cityWindEl.textContent = 'Wind Speed: ' + cityWind + 'mph';
-//     weatherInfoEl.appendChild(cityWindEl);
-//     //append all to container
-//     weatherMainEl.appendChild(weatherInfoEl);
+var historyHandler = function(cityDataObj) {
+    if (historyData === null) {
+        localStorage.setItem("historyData", JSON.stringify(cityDataObj));
+        console.log('THIS is the null one');
+    } else {
+        localStorage.getItem(JSON.parse("historyData"));
+        historyData.push(cityDataObj);
+        localStorage.setItem("historyData", JSON.stringify(cityDataObj));
+    }
+    // var cityName = document.createElement('li');
+    // cityName.classList.add('historyItem');
+    // cityName.textContent = cityDataObj.name;
+    // historyEl.appendChild(cityName);
+}
 
-//     cities.push()
-//     saveData(data);
+var saveData = function(cityDataObj) {
+    localStorage.setItem('City', JSON.stringify(cityDataObj));
+}
 
-//     cityInputEl.value = "";
+// var loadData = function() {
+//     var savedData = localStorage.getItem("cities");
+
+//     savedData = JSON.parse(savedData);
+
+//     for (var i = 0; i < savedData.length; i++) {
+//         addHistory(savedData[i]);
+//     }
 // };
 
-var addHistory = function(cityDataObj) {
-    var cityName = document.createElement('li');
-    cityName.classList.add('historyItem');
-    cityName.textContent = cityDataObj.name;
-    historyEl.appendChild(cityName);
-}
-
-var saveData = function() {
-    localStorage.setItem('cities', JSON.stringify(cities));
-}
-
-var loadData = function() {
-    var savedData = localStorage.getItem("cities");
-
-    savedData = JSON.parse(savedData);
-
-    for (var i = 0; i < savedData.length; i++) {
-        addHistory(savedData[i]);
-    }
-};
 
 userFormEl.addEventListener("submit", formSubmitHandler);
-loadData();
+// loadData();
